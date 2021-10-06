@@ -1,0 +1,30 @@
+{
+    "organizationName":{
+        "organizationNameInput" : "input[name='name']"
+
+    },
+  
+    "navigation":{
+        "addNewOrganization" : ".vs-c-my-organization__header--add-new>h2",
+        "previousButton": "button[name='prev_btn']",
+        "nextButton":"button[name='next_btn']",
+        "closeModal": "button[name='close-new-board-modal-btn']",
+        "newlyCreatedOrganization": "div[class= 'vs-c-my-organization organization-list-item']:nth-last-of-type(3)"
+         
+    },
+    "logo":{
+        "uploadlogo": "input[name='file']",
+        "closeLogoModal" : "button[name='close-confirmation-modal-btn']",
+        "deleteLogo": ".vs-u-pull--left",
+        "cancelLogo":"[name='cancel-btn']",
+        "saveLogo":".vs-u-text--right > .el-button--success"
+    },
+    "editOrganization":{
+        "editOrgName": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) span[title='Edit Organization']",
+        "archiveOrg":"div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) span[title='Archive Organization']",
+        "addProject":"div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) li[title='Add new Project']",
+        "addBoard": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) li[title='Add new Board']"
+    }
+    
+    
+}
