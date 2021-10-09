@@ -1,0 +1,15 @@
+{
+    "collapseSidebar": "p[class='vs-c-sidebar-info']",
+    "addNew": {
+        "addNewSomething": ".vb-content > div.vs-c-list > .vs-c-list__item > .vs-c-list__btn",
+        "addOrganization": ".vs-c-list > :nth-child(1) > a",
+        "addBoard": ":nth-child(2) > a",
+        "importBoard": ".vs-c-list > :nth-child(3) > a"
+    },
+    "logo": "span[class='el-dropdown-link']",
+    "newOrg": {
+        "addToNewOrg": "li[class='vs-c-list__item has-caret']:last-of-type li",
+        "addBoardToNewOrg": "li > a",
+        "collapseNewOrg": "li[class='vs-c-list__item has-caret']:last-of-type button"
+    }
+}
