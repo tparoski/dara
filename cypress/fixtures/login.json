@@ -1,0 +1,19 @@
+{
+    "form": {
+        "emailLogin": "input[data-vv-as='email']git",
+        "passwordLogin": "input[type='password']",
+        "forgotPass": "a[href='/forgot-password']",
+        "loginButton": "button[type='submit']",
+        "backToHome": "a[href='https://www.vivifyscrum.com']",
+        "loginWithGoogle": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--gp']",
+        "loginWithFacebook": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--fb']",
+        "loginWithTwitter": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--tw']",
+        "loginWithRegzenLOL": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--regzen']",
+        "goToSignup": "a[href='https://www.vivifyscrum.com/pricing']"
+    },
+    "erros": {
+        "passErrors": "form>div:nth-child(2) span",
+        "validEmail": "form>div:first-child span",
+        "wrongCredentials": "span[css='1']"
+    }
+}

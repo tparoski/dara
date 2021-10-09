@@ -1,0 +1,31 @@
+{
+    "monthlyPackages": {
+        "tenMembers": "a[onclick='goToSignUpCard(\"starter\", \"monthly\")']",
+        "upToFifty": "a[onclick='goToSignUpCard(\"standard\", \"monthly\")']",
+        "upToHundred": "a[onclick='goToSignUpCard(\"growth\", \"monthly\")']"
+    },
+    "annualPackages": {
+        "tenMembers": "a[onclick='goToSignUpCard(\"starter\", \"yearly\")']",
+        "upToFifty": "a[onclick='goToSignUpCard(\"standard\", \"yearly\")']",
+        "upToHundred": "a[onclick='goToSignUpCard(\"growth\", \"yearly\")']"
+    },
+    "otherPackageRelated": {
+        "enterprise": ".vsp-c-pricing-plan-list--annual > :nth-child(4) > #getAQuote",
+        "switchToMonthly": ".vsp-c-switch-pricing-plan-list > :nth-child(1)",
+        "swithchToAnually": ".checked",
+        "cookies": "#cookieGotIt"
+    },
+    "registration": {
+        "email": "input[name='email']",
+        "password": "input[type='password']",
+        "noOfUsers": "input[name='number_of_users']",
+        "checkBox": "span[class='vs-c-checkbox-check']",
+        "seePass": "button[type='button']",
+        "submit": "button[type='submit']",
+        "registerWithGoogle": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--gp']",
+        "registerWithFacebook": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--fb']",
+        "registerWithTwitter": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--tw']",
+        "registerWithRegzenLOL": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--regzen']",
+        "goToLogin": "a[href='/login']"
+    }
+}
