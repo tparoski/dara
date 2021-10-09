@@ -1,6 +1,7 @@
 {
     "organizationName": {
-        "organizationNameInput": "input[name='name']"
+        "organizationNameInput": "input[name='name']",
+        "checkNameDashBoard": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-child(3) h2"
     },
     "navigation": {
         "addNewOrganization": ".vs-c-my-organization__header--add-new>h2",
@@ -14,12 +15,31 @@
         "closeLogoModal": "button[name='close-confirmation-modal-btn']",
         "deleteLogo": ".vs-u-pull--left",
         "cancelLogo": "[name='cancel-btn']",
-        "saveLogo": ".vs-u-text--right > .el-button--success"
+        "saveLogo": ".vs-u-text--right > .el-button--success",
+        "modalHeader": ".vs-c-modal__header > h4"
     },
     "editOrganization": {
         "editOrgName": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) span[title='Edit Organization']",
-        "archiveOrg": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) span[title='Archive Organization']",
+        "editOrgNameInput": "input",
+        "confirmChangeName": "button[name='change-organization-name']",
+        "denyChangeName": "button[name='change-organization-name']~button",
         "addProject": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) li[title='Add new Project']",
         "addBoard": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) li[title='Add new Board']"
+    },
+    "archive": {
+        "archiveOrg": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) span[title='Archive Organization']",
+        "confirmArchive": "[name='save-btn']",
+        "denyArchive": "[name='cancel-btn']",
+        "findInArchive": "div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']>:last-child h2",
+        "revertArchive": "div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']>div:last-child [title='Reopen Organization']"
+    },
+    "delete": {
+        "deleteOrg": "div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']>div:last-child [title='Delete Organization']",
+        "password": "input",
+        "confirmDelete": "[name='save-btn']",
+        "denyADelete": "[name='cancel-btn']"
+    },
+    "errors": {
+        "imageExtension": ".el-message__group > p"
     }
 }

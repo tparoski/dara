@@ -1,3 +1,7 @@
 {
-    "baseUrl" : "https://cypress.vivifyscrum-stage.com/login"
+    "baseUrl" : "https://cypress.vivifyscrum-stage.com",
+    "env" :{
+        "validEmail" : "tamara.p@vivifyideas.com",
+        "validPass" : "majakowski0506"
+    }
 }
