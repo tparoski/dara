@@ -3,8 +3,10 @@ const login = require("../fixtures/login.json")
 const sideBar = require("../fixtures/sideBar.json")
 import data from "../fixtures/data.json"
 describe('prvi testovi', () => {
-    it('empty', () => {
+    beforeEach(() => {
         cy.visit('/login', { timeout: 30000 })
+    });
+    it('empty', () => {
         cy.get(login.form.loginButton).click()
         cy.get(login.erros.email)
         cy.get(login.erros.pass)
@@ -37,13 +39,11 @@ describe('prvi testovi', () => {
         cy.get(login.form.emailLogin).clear().type("tamara.pvivifyideas.com")
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
-        cy.get(login.erros.wrongCredentials)
     });
     it('email without dot', () => {
         cy.get(login.form.emailLogin).clear().type("tamara.p@vivifyideascom")
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
-        cy.get(login.erros.wrongCredentials)
     });
     it('trim spaces', () => {
         cy.get(login.form.emailLogin).clear().type("   " + data.user.email)
@@ -51,14 +51,12 @@ describe('prvi testovi', () => {
         cy.get(login.form.loginButton).click()
         cy.get(login.erros.wrongCredentials)
     });
-    it('visit positive', () => {
+    it('login,logout', () => {
         cy.get(login.form.emailLogin).clear().type(data.user.email)
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
-    });
-    it('logout', () => {
         cy.get(sideBar.logout.logo).click()
         cy.get(sideBar.logout.me).click()
         cy.get(sideBar.logout.logout).click()
-    })
+    });
 })

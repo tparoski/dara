@@ -3,7 +3,8 @@ const register = require("../fixtures/register.json")
 const data = require("../fixtures/data.json")
 const faker = require("faker");
 describe('just register', () => {
-    before(() => {
+    beforeEach(() => {
+        cy.visit('/login', { timeout: 30000 })
         cy.visit('https://cypress-api.vivifyscrum-stage.com/pricing', { timeout: 30000 })
         cy.get(register.monthlyPackages.tenMembers).eq(1).click({ force: true })
     })

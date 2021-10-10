@@ -2,29 +2,28 @@
 const org = require("../fixtures/addOrg.json")
 const login = require("../fixtures/login.json")
 const data = require("../fixtures/data.json")
-const nav = require("../fixtures/navigation.json")
-const sideBar = require("../fixtures/sideBar.json")
-describe('create org', () => {
+describe('archive org', () => {
+    const loginSession = (email, password) => {
+        cy.session([email, password], () => {
+            cy.visit('', { timeout: 30000 })
+            cy.get(login.form.emailLogin).clear().type(email)
+            cy.get(login.form.passwordLogin).clear().type(password)
+            cy.get(login.form.loginButton).click()
+            cy.wait(3000)
+        })
+    }
     before(() => {
-        cy.visit('/login')
-        cy.get(login.form.emailLogin).clear().type(data.user.email)
-        cy.get(login.form.passwordLogin).clear().type(data.user.password)
-        cy.get(login.form.loginButton).click()
-        cy.wait(3000)
+        loginSession(data.user.email, data.user.password)
+        cy.visit('/my-organizations')
         cy.get(org.navigation.addNewOrganization).click()
         cy.get(org.organizationName.organizationNameInput).type(data.org.name3)
         cy.get(org.navigation.nextButton).click()
         cy.get(org.navigation.nextButton).click()
-        cy.get(sideBar.logout.logo).click()
-        cy.get(sideBar.logout.me).click()
-        cy.get(sideBar.logout.logout).click()
+        cy.wait(5000)
     });
     beforeEach(() => {
-        cy.visit('/login')
-        cy.get(login.form.emailLogin).clear().type(data.user.email)
-        cy.get(login.form.passwordLogin).clear().type(data.user.password)
-        cy.get(login.form.loginButton).click()
-        cy.wait(3000)
+        loginSession(data.user.email, data.user.password)
+        cy.visit('/my-organizations')
     });
     it('archive>not', () => {
         cy.get(org.archive.archiveOrg).click({ force: true })
