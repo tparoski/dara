@@ -1,10 +1,13 @@
 /// <reference types ="Cypress" />
-const org = require("../fixtures/addOrg.json")
-const login = require("../fixtures/login.json")
-const data = require("../fixtures/data.json")
-const nav = require("../fixtures/navigation.json")
-const faker = require("faker");
-const jpg = '../fixtures/media/valid/jpg.jpg';
+import org from "../fixtures/addOrg.json"
+import login from "../fixtures/login.json"
+import data from "../fixtures/data.json"
+import nav from "../fixtures/navigation.json"
+import faker from "faker"
+import url from "../fixtures/url.json"
+import board from "../fixtures/addBoard.json"
+//nisam usela da koristim import za ove fajlove jer dobijam error u cypressu
+const jpg = "../fixtures/media/valid/jpg.jpg"
 const gif = '../fixtures/media/valid/gif.gif';
 const jpeg = '../fixtures/media/valid/jpeg.jpeg';
 const png = '../fixtures/media/valid/png.png';
@@ -19,7 +22,7 @@ const tiff = '../fixtures/media/invalid/tiff.tiff';
 const zip = '../fixtures/media/invalid/zip.zip';
 describe('create org', () => {
     beforeEach(() => {
-        cy.visit('/login')
+        cy.visit(url.login)
         cy.get(login.form.emailLogin).clear().type(data.user.email)
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
@@ -36,7 +39,7 @@ describe('create org', () => {
     });
     it('not able to enter over 50 char', () => {
         cy.get(org.navigation.addNewOrganization).click()
-        cy.get(org.organizationName.organizationNameInput).type("lbpkpghcafjhccgnpnpbikkjjpjoeecalmiapepgelpnkihcehb")
+        cy.get(org.organizationName.organizationNameInput).type(data.strings.string51)
     });
     it('upload ai', () => {
         cy.get(org.navigation.addNewOrganization).click()
@@ -138,6 +141,7 @@ describe('create org', () => {
         cy.get(org.logo.saveLogo).click()
         cy.wait(500)
         cy.get(org.navigation.nextButton).click()
+        cy.get(board.okBoardCreated).click()
         cy.get(nav.organizationName)
     })
     it('without a logo', () => {
@@ -145,6 +149,7 @@ describe('create org', () => {
         cy.get(org.organizationName.organizationNameInput).type(data.org.name3)
         cy.get(org.navigation.nextButton).click()
         cy.get(org.navigation.nextButton).click()
+        cy.get(board.okBoardCreated).click()
         cy.get(nav.organizationName)
     })
     it('positive', () => {
@@ -156,6 +161,7 @@ describe('create org', () => {
         cy.get(org.logo.saveLogo).click()
         cy.wait(500)
         cy.get(org.navigation.nextButton).click()
+        cy.get(board.okBoardCreated).click()
         cy.get(nav.organizationName)
     });
 })

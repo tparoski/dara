@@ -1,12 +1,13 @@
 /// <reference types ="Cypress" />
-const board = require("../fixtures/addBoard.json")
-const org = require("../fixtures/addOrg.json")
-const login = require("../fixtures/login.json")
-const data = require("../fixtures/data.json")
-const sideBar = require("../fixtures/sideBar.json")
-const nav = require("../fixtures/navigation.json")
-const faker = require("faker");
-const jpg = '../fixtures/media/valid/jpg.jpg';
+import board from "../fixtures/addBoard.json"
+import org from "../fixtures/addOrg.json"
+import login from "../fixtures/login.json"
+import data from "../fixtures/data.json"
+import faker from "faker"
+import url from "../fixtures/url.json"
+import sideBar from "../fixtures/sideBar.json"
+//nisam usela da koristim import za ove fajlove jer dobijam error u cypressu
+const jpg = "../fixtures/media/valid/jpg.jpg"
 const gif = '../fixtures/media/valid/gif.gif';
 const jpeg = '../fixtures/media/valid/jpeg.jpeg';
 const png = '../fixtures/media/valid/png.png';
@@ -19,41 +20,42 @@ const psd = '../fixtures/media/invalid/psd.psd';
 const svg = '../fixtures/media/invalid/svg.svg';
 const tiff = '../fixtures/media/invalid/tiff.tiff';
 const zip = '../fixtures/media/invalid/zip.zip';
-describe('create board', () => {
-    const loginSession = (email, password) => {
-        cy.session([email, password], () => {
-            cy.visit('', { timeout: 30000 })
-            cy.get(login.form.emailLogin).clear().type(email)
-            cy.get(login.form.passwordLogin).clear().type(password)
-            cy.get(login.form.loginButton).click()
-            cy.wait(3000)
-        })
-    }
+
+describe('create board and name', () => {
     before(() => {
-        loginSession(data.user.email, data.user.password)
-        cy.visit('/my-organizations')
-        cy.get(org.navigation.addNewOrganization).click()
-        cy.get(org.organizationName.organizationNameInput).type(data.org.name4)
+        cy.visit(url.login, {timeout: 30000})
+        cy.get(login.form.emailLogin).clear().type(data.user.email)
+        cy.get(login.form.passwordLogin).clear().type(data.user.password)
+        cy.get(login.form.loginButton).click()
+        cy.wait(3000)
+        cy.get(org.navigation.addNewOrganization, {timeout: 30000}).click()
+        cy.get(org.organizationName.organizationNameInput).type(data.org.name3)
         cy.get(org.navigation.nextButton).click()
         cy.get(org.navigation.nextButton).click()
-        cy.wait(5000)
-    });
+        cy.get(board.okBoardCreated).click()
+        cy.get(sideBar.logout.logo).click()
+        cy.get(sideBar.logout.me).click()
+        cy.get(sideBar.logout.logout).click()
+    })
     beforeEach(() => {
-        loginSession(data.user.email, data.user.password)
-        cy.visit('/my-organizations')
-    });
+        cy.visit(url.login, {timeout: 30000})
+        cy.get(login.form.emailLogin).clear().type(data.user.email)
+        cy.get(login.form.passwordLogin).clear().type(data.user.password)
+        cy.get(login.form.loginButton).click()
+        cy.wait(3000)
+    })
     it('next is dissabed without file name', () => {
         cy.get(board.addFromDashboard.addBoard).click()
         cy.get(board.navigation.nextButton)
     });
     it('next is dissabed when there are spaces in filename', () => {
         cy.get(board.addFromDashboard.addBoard).click()
-        cy.get(board.newBoard.title).type("    ")
+        cy.get(board.newBoard.title).type(data.strings.onlyspaces)
         cy.get(board.navigation.nextButton)
     });
     it('not able to enter over 50 char', () => {
         cy.get(board.addFromDashboard.addBoard).click()
-        cy.get(board.newBoard.title).type("lbpkpghcafjhccgnpnpbikkjjpjoeecalmiapepgelpnkihcehb")
+        cy.get(board.newBoard.title).type(data.strings.string51)
         cy.get(board.newBoard.title)
     });
     it('next is dissabed  without organization', () => {
@@ -254,4 +256,4 @@ describe('create board', () => {
         cy.get(board.navigation.nextButton).click()
         cy.get(board.visitNewBoardFromSideBar)
     });
-})
+});

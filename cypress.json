@@ -3,7 +3,6 @@
     "env" :{
         "validEmail" : "tamara.p@vivifyideas.com",
         "validPass" : "majakowski0506"
-    },
-    "experimentalStudio": true,
-    "experimentalSessionSupport": true
+    }
+
 }

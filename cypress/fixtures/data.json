@@ -3,6 +3,15 @@
         "email": "tamara.p@vivifyideas.com",
         "password": "majakowski0506"
     },
+    "userInvalid":{
+        "wrongPass": "soWrong",
+        "shortPass": "test",
+        "wrongEmail": "sowrong@nothing.com",
+        "emailNoAt": "tamara.pvivifyideas.com",
+        "emailNoDot":"tamara.p@vivifyideascom",
+        "email2Ats":"tpa@roski@gmail.com",
+        "email2Dots":"email@example..com"
+    },
     "org": {
         "name": "someSolutions",
         "name2": "noSolution",
@@ -17,5 +26,20 @@
         "name2": "testBoard",
         "name3": "practiceBoard",
         "nameUnicode": "ђшђш"
+    },
+    "userNumbers": {
+        "ten":"10",
+        "zero":"0",
+        "eleven":"11",
+        "inLetters":"ten",
+        "spaceNum": "   2",
+        "decimal":"3.5"
+    },
+    "strings":{
+        "email75char":"pplamjaagmabhagpcddfhchgpobbhmnligffffffffffffjhkibnghipkcpeilopg@gmail.com",
+        "string51":"lbpkpghcafjhccgnpnpbikkjjpjoeecalmiapepgelpnkihcehb",
+        "onlyspaces":"     ",
+        "string256":"NPCsvd9NfSKUAB07JEDuCOxgyf3IWLeaYWQ7Oqe5erN0HAjGLA5oku1LOUFFwg6qgtdCVnARxlEOHZBwwrTVtIl0EGSGUBHRV0VpJcVcB6G8DrX5sKzg9AFbJwYHMh3kH2pV0WSaYFXPYZztkHIOEyQZKcXud0xoe8kZgR4lrzzdDOe6FXO3wWScQXkf7xdSLH5FKWe638hjT6DCxjwkj73s6majxt6hHFsdQ6YyCaoPmBgs9vQUaoBTBWzXXiXj",
+        "string5":"test1"
     }
 }

@@ -1,10 +1,11 @@
 /// <reference types ="Cypress" />
-const login = require("../fixtures/login.json")
-const sideBar = require("../fixtures/sideBar.json")
+import login from "../fixtures/login.json"
+import sideBar from "../fixtures/sideBar.json"
 import data from "../fixtures/data.json"
+import url from "../fixtures/url.json"
 describe('prvi testovi', () => {
     beforeEach(() => {
-        cy.visit('/login', { timeout: 30000 })
+        cy.visit(url.login, { timeout: 30000 })
     });
     it('empty', () => {
         cy.get(login.form.loginButton).click()
@@ -25,23 +26,23 @@ describe('prvi testovi', () => {
     });
     it('wrong pass', () => {
         cy.get(login.form.emailLogin).clear().type(data.user.email)
-        cy.get(login.form.passwordLogin).clear().type("soWrong")
+        cy.get(login.form.passwordLogin).clear().type(data.userInvalid.wrongPass)
         cy.get(login.form.loginButton).click()
         cy.get(login.erros.pass)
     });
     it('wrong email', () => {
-        cy.get(login.form.emailLogin).clear().type("sowrong@nothing.com")
+        cy.get(login.form.emailLogin).clear().type(data.userInvalid.wrongEmail)
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
         cy.get(login.erros.wrongCredentials)
     });
     it('email without @', () => {
-        cy.get(login.form.emailLogin).clear().type("tamara.pvivifyideas.com")
+        cy.get(login.form.emailLogin).clear().type(data.userInvalid.emailNoAt)
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
     });
     it('email without dot', () => {
-        cy.get(login.form.emailLogin).clear().type("tamara.p@vivifyideascom")
+        cy.get(login.form.emailLogin).clear().type(data.userInvalid.emailNoDot)
         cy.get(login.form.passwordLogin).clear().type(data.user.password)
         cy.get(login.form.loginButton).click()
     });
