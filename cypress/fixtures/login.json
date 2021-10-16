@@ -1,6 +1,6 @@
 {
     "form": {
-        "emailLogin": "input[data-vv-as='email']git",
+        "emailLogin": "input[type='email']",
         "passwordLogin": "input[type='password']",
         "forgotPass": "a[href='/forgot-password']",
         "loginButton": "button[type='submit']",
@@ -12,8 +12,8 @@
         "goToSignup": "a[href='https://www.vivifyscrum.com/pricing']"
     },
     "erros": {
-        "passErrors": "form>div:nth-child(2) span",
-        "validEmail": "form>div:first-child span",
-        "wrongCredentials": "span[css='1']"
+        "pass": "form>div:nth-child(2) span",
+        "email": "form>div:first-child span",
+        "wrongCredentials": "span[class='el-form-item__error']"
     }
 }

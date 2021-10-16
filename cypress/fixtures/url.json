@@ -1,0 +1,5 @@
+{
+    "login":"/login",
+    "register":"https://cypress-api.vivifyscrum-stage.com/pricing",
+    "myOrg":"/my-organizations"
+}

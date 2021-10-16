@@ -6,7 +6,11 @@
         "addBoard": ":nth-child(2) > a",
         "importBoard": ".vs-c-list > :nth-child(3) > a"
     },
-    "logo": "span[class='el-dropdown-link']",
+    "logout": {
+        "logo": "span[class='el-dropdown-link']",
+        "me": "a[href='/account/settings']",
+        "logout": "button[class='vs-c-btn vs-c-btn--link vs-c-btn--danger']"
+    },
     "newOrg": {
         "addToNewOrg": "li[class='vs-c-list__item has-caret']:last-of-type li",
         "addBoardToNewOrg": "li > a",

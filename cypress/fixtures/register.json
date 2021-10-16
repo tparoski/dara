@@ -1,13 +1,8 @@
 {
     "monthlyPackages": {
-        "tenMembers": "a[onclick='goToSignUpCard(\"starter\", \"monthly\")']",
-        "upToFifty": "a[onclick='goToSignUpCard(\"standard\", \"monthly\")']",
-        "upToHundred": "a[onclick='goToSignUpCard(\"growth\", \"monthly\")']"
-    },
-    "annualPackages": {
-        "tenMembers": "a[onclick='goToSignUpCard(\"starter\", \"yearly\")']",
-        "upToFifty": "a[onclick='goToSignUpCard(\"standard\", \"yearly\")']",
-        "upToHundred": "a[onclick='goToSignUpCard(\"growth\", \"yearly\")']"
+        "tenMembers": "a[title='Starter']",
+        "upToFifty": "a[title='Standard']",
+        "upToHundred": "a[title='Growth']"
     },
     "otherPackageRelated": {
         "enterprise": ".vsp-c-pricing-plan-list--annual > :nth-child(4) > #getAQuote",
@@ -19,7 +14,7 @@
         "email": "input[name='email']",
         "password": "input[type='password']",
         "noOfUsers": "input[name='number_of_users']",
-        "checkBox": "span[class='vs-c-checkbox-check']",
+        "checkBox": "input[type='checkbox']",
         "seePass": "button[type='button']",
         "submit": "button[type='submit']",
         "registerWithGoogle": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--gp']",
@@ -27,5 +22,12 @@
         "registerWithTwitter": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--tw']",
         "registerWithRegzenLOL": "button[class='vs-c-btn vs-c-btn--social-auth vs-c-btn--regzen']",
         "goToLogin": "a[href='/login']"
+    },
+    "errors":{
+        "email":"div[class='el-form-item']:first-child span",
+        "password":"div[class='el-form-item']:nth-child(2) span",
+        "noOfUsers":"div[class='el-form-item']:nth-child(3) span",
+        "checkBox":"div[class='el-form-item']:nth-child(4) span[class='el-form-item__error el-form-item-error--top']",
+        "beckend":".el-message__group > p"
     }
 }

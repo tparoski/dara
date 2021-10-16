@@ -2,16 +2,20 @@
     "addFromDashboard": {
         "addBoard": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-of-type(3) li[title='Add new Board']"
     },
+    "addFromOrg": {
+        "addBoard": "p>strong"
+    },
     "addFromSidebarUp": {
         "addNewSomething": ".vb-content > div.vs-c-list > .vs-c-list__item > .vs-c-list__btn",
-        "addOrganization": ".vs-c-list > :nth-child(1) > a"
+        "addOrganization": ".vs-c-list > :nth-child(1) > a",
+        "addBoard": ".vs-c-list > :nth-child(2) > a"
     },
     "addFromSidebarDown": {
         "addToNewOrg": "li[class='vs-c-list__item has-caret']:last-of-type li",
         "addBoardToNewOrg": "li > a"
     },
     "newBoard": {
-        "organization": "ul[class='el-scrollbar__view el-select-dropdown__list']>li:last-of-type",
+        "organizationInput": "input[class='el-input__inner']",
         "title": "input[name='name']"
     },
     "boardType": {
@@ -20,6 +24,7 @@
     },
     "import": {
         "configuration": ":nth-child(1) > .vs-input-border > .el-select > .el-input > .el-input__inner",
+        "input": "input[class='el-input__inner']",
         "members": ":nth-child(2) > .vs-input-border > .el-select > .el-input > .el-input__inner"
     },
     "logo": {
@@ -27,12 +32,25 @@
         "closeLogoModal": "button[name='close-confirmation-modal-btn']",
         "deleteLogo": ".vs-u-pull--left",
         "cancelLogo": "[name='cancel-btn']",
-        "saveLogo": ".vs-u-text--right > .el-button--success"
+        "saveLogo": ".vs-u-text--right > .el-button--success",
+        "modalHeader": ".vs-c-modal__header > h4"
     },
     "navigation": {
         "previousButton": "button[name='prev_btn']",
         "nextButton": "button[name='next_btn']",
         "closeModal": "button[name='close-new-board-modal-btn']"
     },
-    "visitNewBoardFromSideBar": "li[class='vs-c-list__item has-caret']:last-of-type li:nth-last-child(2)"
+    "errors": {
+        "imageExtension": ".el-message__group > p"
+    },
+    "visitNewBoardFromSideBar": "li[class='vs-c-list__item has-caret']:last-of-type li:nth-last-child(2)",
+    "okBoardCreated": ".vs-c-modal--features-button > .vs-c-btn",
+    "edit": {
+        "goToBoard": "div[class='vs-c-my-organizations-item-wrapper']>div:nth-last-child(3)",
+        "archive": "div[class='vs-c-organization__section']>div:nth-last-child(2) >.vs-c-boards-item__header div[class='vs-c-boards-item__actions vs-u-display--flex']>div>svg",
+        "confirmArchive": "[name='save-btn']",
+        "denyArchive": "[name='cancel-btn']",
+        "revertArchive": "div[class='vs-c-boards-item__actions vs-u-display--flex']>div:nth-child(2)",
+        "deleteBoard": "div[class='vs-c-boards-item__actions vs-u-display--flex']>div:nth-child(1)"
+    }
 }

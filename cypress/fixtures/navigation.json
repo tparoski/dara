@@ -6,5 +6,6 @@
     "showPreviouseSprints": "button[name='show_finished_sprints']",
     "showTableView": "button[name='show_finished_sprints']+button",
     "moreOptions": "button[name='show_finished_sprints'] ~ div",
-    "filter": "div[class='vs-c-dropdown-wrapper vs-c-filter'] button"
+    "filter": "div[class='vs-c-dropdown-wrapper vs-c-filter'] button",
+    "organizationName": "span>strong"
 }
