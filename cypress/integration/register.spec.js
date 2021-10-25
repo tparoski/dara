@@ -5,9 +5,10 @@ import url from "../fixtures/url.json"
 const faker = require("faker");
 describe('register', () => {
     beforeEach(() => {
-        cy.visit(url.login, { timeout: 30000 })
+        cy.intercept('/api/v2/users/app-notifications').as('register')
         cy.visit(url.register, { timeout: 30000 })
         cy.get(register.monthlyPackages.tenMembers).eq(1).click({ force: true })
+        cy.wait('@register')
     })
     it('empty', () => {
         cy.get(register.registration.checkBox).uncheck({ force: true })
