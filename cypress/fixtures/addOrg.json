@@ -7,7 +7,7 @@
         "addNewOrganization": ".vs-c-my-organization__header--add-new>h2",
         "previousButton": "button[name='prev_btn']",
         "nextButton": "button[name='next_btn']",
-        "closeModal": "button[name='close-new-board-modal-btn']",
+        "closeModal": "button[name='close-confirmation-modal-btn']",
         "newlyCreatedOrganization": "div[class= 'vs-c-my-organization organization-list-item']:nth-last-of-type(3)"
     },
     "logo": {
@@ -41,5 +41,10 @@
     },
     "errors": {
         "imageExtension": ".el-message__group > p"
-    }
+    },
+    "modalTitle":"div[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-organization'] h2 span",
+    "activeOrg":"div[class='vs-c-my-organizations-item-wrapper']",
+    
+    "archivedOrg":"div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']",
+    "archivedOrgParent":"div[class='vs-l-my-organizations__content']"
 }

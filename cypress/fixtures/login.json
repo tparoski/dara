@@ -14,6 +14,7 @@
     "erros": {
         "pass": "form>div:nth-child(2) span",
         "email": "form>div:first-child span",
-        "wrongCredentials": "span[class='el-form-item__error']"
+        "wrongCredentials": "span[class='el-form-item__error']",
+        "all":"span[class='el-form-item__error el-form-item-error--top']"
     }
 }

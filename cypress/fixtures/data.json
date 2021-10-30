@@ -19,14 +19,20 @@
         "name4": "onBoard",
         "name255": "KYci3ymXPwPuSnQwKp82kBem2UEP8XXksNojw6awKOgs18con6GFwPVJFAN9jjHJg1X73g2VeHBq66bmINVzmqJMxQE1KavKIUHxcwUyhtvXQWFCRzQ1EnYy9gidMn8svVbD12IvTWWMf5y45MGEST3EG8lQqvzCN4RtPYz84ho4MErWDfwwUNW9S5w2YP2vmvyQUlqe9u2nFzj7kCexjAVmgiHcgLIkmoMRO5XD7u45cNsRTor6cdyQl9iljLB",
         "nameUnicode": "ђшђш",
-        "nameArchive":"archive"
+        "nameArchive":"archive",
+        "titleNewOrg":"New Organization",
+        "uploadLogoTitle":"Upload Logo"
     },
     "board": {
         "nameNoLogo": "withoutLogo",
         "justName": "someBoard",
         "name2": "testBoard",
         "name3": "practiceBoard",
-        "nameUnicode": "ђшђш"
+        "nameUnicode": "ђшђш",
+        "modalTitle": "New Board",
+        "modalTitle2":"Board Type",
+        "modalTitle3":"Board Logo",
+        "modalTitle4":"Import"
     },
     "userNumbers": {
         "ten":"10",
@@ -42,5 +48,24 @@
         "onlyspaces":"     ",
         "string256":"NPCsvd9NfSKUAB07JEDuCOxgyf3IWLeaYWQ7Oqe5erN0HAjGLA5oku1LOUFFwg6qgtdCVnARxlEOHZBwwrTVtIl0EGSGUBHRV0VpJcVcB6G8DrX5sKzg9AFbJwYHMh3kH2pV0WSaYFXPYZztkHIOEyQZKcXud0xoe8kZgR4lrzzdDOe6FXO3wWScQXkf7xdSLH5FKWe638hjT6DCxjwkj73s6majxt6hHFsdQ6YyCaoPmBgs9vQUaoBTBWzXXiXj",
         "string5":"test1"
+    },
+    "titles":{
+        "pricingPage": "Unlock the premium power of VivifyScrum"
+    },
+    "errors":{
+        "register":{
+            "validEmail":"The email field must be a valid emai",
+            "passReqired":"The password field is required",
+            "passMin":"The password field must be at least 5 characters",
+            "usersRequired": "The number of users field is required",
+            "usersMinMax":"The number of users must be between 1 and 10",
+            "usersInteger":"The number of users field must be an integer",            
+            "termsRequired":"The agree to terms and privacy policy field is required",
+            "userExsists":"User with that email already exists",
+            "invalidCredentials":"Oops! Your email/password combination is incorrect"
+        },
+        "logo":"The file must be a file of type: png, jpg, gif, jpeg.",
+        "pass":"The password is incorrect.",
+        "org":"Create or join an Organization in order to create your Board or Project."
     }
 }

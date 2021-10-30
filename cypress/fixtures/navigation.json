@@ -7,5 +7,6 @@
     "showTableView": "button[name='show_finished_sprints']+button",
     "moreOptions": "button[name='show_finished_sprints'] ~ div",
     "filter": "div[class='vs-c-dropdown-wrapper vs-c-filter'] button",
-    "organizationName": "span>strong"
+    "organizationName": "span>strong",
+    "boardName": "h1 span"
 }

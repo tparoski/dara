@@ -16,6 +16,7 @@
     },
     "newBoard": {
         "organizationInput": "input[class='el-input__inner']",
+        "organizationSelect":".el-select-dropdown__item > span",
         "title": "input[name='name']"
     },
     "boardType": {
@@ -52,5 +53,8 @@
         "denyArchive": "[name='cancel-btn']",
         "revertArchive": "div[class='vs-c-boards-item__actions vs-u-display--flex']>div:nth-child(2)",
         "deleteBoard": "div[class='vs-c-boards-item__actions vs-u-display--flex']>div:nth-child(1)"
-    }
+    },
+    "modaltitle":"h2[class='vs-c-modal__title']",
+    "activeParent":"div[class='vs-c-organization__body']",
+    "archivedParent":"div[class='vs-c-organization__body']>div:last-child"
 }

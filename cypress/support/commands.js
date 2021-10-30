@@ -23,8 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import 'cypress-file-upload'
-Cypress.Commands.add('loginThroughBackend', () => {
+import 'cypress-file-upload';
+Cypress.Commands.add('login', () => {
     cy.request({
         method : 'POST',
         url : 'https://cypress-api.vivifyscrum-stage.com/api/v2/login',
@@ -35,10 +35,9 @@ Cypress.Commands.add('loginThroughBackend', () => {
     }).its('body').then((response) => {
         window.localStorage.setItem('token',response.token)
         window.localStorage.setItem('user_id',response.user.id)
-        window.localStorage.setItem('user-666-section-organization-showed',true)
-        window.localStorage.setItem('collapsed_sidebar',1000000000)
-        window.localStorage.setItem('organization_history',{"organizations":[{"name":"home","params":{"organizationId":0}}],"last_organization_id":0})
-        
+        window.localStorage.setItem('organization_history',JSON.stringify({"organizations":[{"name":"home","params":{"organizationId":0}}],"last_organization_id":0}))
+        window.localStorage.setItem('user', JSON.stringify(response.user))
+        return response.token
     })
 })
 

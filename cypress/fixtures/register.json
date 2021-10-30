@@ -28,6 +28,11 @@
         "password":"div[class='el-form-item']:nth-child(2) span",
         "noOfUsers":"div[class='el-form-item']:nth-child(3) span",
         "checkBox":"div[class='el-form-item']:nth-child(4) span[class='el-form-item__error el-form-item-error--top']",
-        "beckend":".el-message__group > p"
-    }
+        "beckend":".el-message__group > p",
+        "all": "div[class=vs-c-form-item__error-wrapper]"
+    },
+
+    "acceptCookies":"a#cookieGotIt",
+    "titlePricingPlans": ".vsp-c-grid > :nth-child(1) > .vsp-c-section-title",
+    "closeMeet":".vsp-c-grid > :nth-child(1) > .vsp-c-section-title"
 }
