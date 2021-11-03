@@ -1,6 +1,9 @@
 module.exports = {
     get orgName(){
         return cy.get("span>strong")
+    },
+    get boradName(){
+        return cy.get("h1 span")
     }
 }
 // {
@@ -12,6 +15,4 @@ module.exports = {
 //     "showTableView": "button[name='show_finished_sprints']+button",
 //     "moreOptions": "button[name='show_finished_sprints'] ~ div",
 //     "filter": "div[class='vs-c-dropdown-wrapper vs-c-filter'] button",
-//     "organizationName": "span>strong",
-//     "boardName": "h1 span"
-// }
+

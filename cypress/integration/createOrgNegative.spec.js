@@ -31,41 +31,41 @@ describe('create org negative cases', () => {
         createOrgModule.nextBtnModal.should('be.disabled')
     });
     it('next is dissabed when there are spaces', () => {
-        createOrgModule.wrongFileType({name:"   "})
+        createOrgModule.wrongFileType({ name: "   " })
         createOrgModule.nextBtnModal.should('be.disabled')
     });
     it('not able to enter over 50 char', () => {
-        createOrgModule.wrongFileType({name:data.strings.string51})
+        createOrgModule.wrongFileType({ name: data.strings.string51 })
         createOrgModule.organizationNameInput.invoke('val').its('length').should('eq', 50)
         createOrgModule.nextBtnModal.should('not.be.disabled')
     });
     it('upload ai', () => {
-        createOrgModule.wrongFileType({file:ai})
+        createOrgModule.wrongFileType({ file: ai })
     });
     //bug
     //createOrgModule.wrongFileType(bmp)
     //});
     it('upload docx', () => {
-        createOrgModule.wrongFileType({file:docx})
+        createOrgModule.wrongFileType({ file: docx })
     });
     it('upload eps', () => {
-        createOrgModule.wrongFileType({file:eps})
+        createOrgModule.wrongFileType({ file: eps })
     });
     it('upload pdf', () => {
-        createOrgModule.wrongFileType({file:pdf})
+        createOrgModule.wrongFileType({ file: pdf })
     });
     //bug, pasce
     // it('upload psd', () => {
     // createOrgModule.wrongFileType(psd)
     // });
     it('upload svg', () => {
-        createOrgModule.wrongFileType({file:svg})
+        createOrgModule.wrongFileType({ file: svg })
     });
     //ovde je bug ne javlja se validaciona poruka ali se image ne prikazuje
     // it('upload tiff', () => {
     // createOrgModule.wrongFileType(tiff)
     //});
     it('upload zip', () => {
-        createOrgModule.wrongFileType({file:zip})
+        createOrgModule.wrongFileType({ file: zip })
     });
 });

@@ -53,15 +53,15 @@ module.exports = {
         return cy.get("div[class=vs-c-form-item__error-wrapper]")
     },
     //napravila sam dve funkcije jer kada napravim da jedna funkcija pokriva sve potrebe celog speca izgleda dosta ruzno sa previse if-ova. pretpostavila sam da je tako nesto losa praksa, pa mi se ovo ucinilo potencijalno boljom idejom
-    registerValid({eye = false}) {
+    registerValid({ eye = false }) {
         cy.intercept('POST', 'https://cypress-api.vivifyscrum-stage.com/api/v2/register').as('register')
-        const email= faker.internet.email().toLowerCase()
-        const password =faker.internet.password()
+        const email = faker.internet.email().toLowerCase()
+        const password = faker.internet.password()
         const noOfUsers = Math.floor(Math.random() * 10) + 1;
         this.email.should("be.visible").type(email);
         this.password.should("be.visible").type(password);
         this.noOfUsers.should("be.visible").type(noOfUsers);
-        if(eye==true){
+        if (eye == true) {
             this.seePass.click()
         }
         this.submit.should("be.visible").click();
@@ -71,7 +71,7 @@ module.exports = {
             expect(res.body.user.premium_plan_members).to.eq(noOfUsers);
         })
     },
-    registerInValid({email = faker.internet.email().toLowerCase(), password = data.user.password, noOfUsers = data.userNumbers.ten, checkBox = true }) {
+    registerInValid({ email = faker.internet.email().toLowerCase(), password = data.user.password, noOfUsers = data.userNumbers.ten, checkBox = true }) {
         if (email == "" || password == "" || noOfUsers == "") {
             this.checkBox.uncheck({ force: true })
             this.submit.click();
@@ -88,6 +88,3 @@ module.exports = {
         }
     }
 }
-
-
-

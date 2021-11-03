@@ -24,10 +24,10 @@ describe('edit org', () => {
     })
     beforeEach(() => {
         cy.login()
-        cy.intercept('GET','https://cypress-api.vivifyscrum-stage.com/api/v2/my-organizations').as('organizations')
+        cy.intercept('GET', 'https://cypress-api.vivifyscrum-stage.com/api/v2/my-organizations').as('organizations')
         cy.visit(url.myOrg)
         cy.wait('@organizations').its('response.body').then((res) => {
-            orgName=res[res.length - 1].name
+            orgName = res[res.length - 1].name
         })
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
     })
@@ -53,14 +53,14 @@ describe('edit org', () => {
     });
     //bug. only BE error , no FE
     it('change name to over 255  char', () => {
-        cy.intercept('PUT',`https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}`).as('orgNameEdit');
+        cy.intercept('PUT', `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}`).as('orgNameEdit');
         createOrgModule.editOrgName.click();
         createOrgModule.editNameInput.should('be.visible').clear().type(data.strings.string256);
         createOrgModule.confirmOrgName.should('be.visible').click();
         cy.wait('@orgNameEdit').its("response").then((res) => {
             expect(res.statusCode).to.eq(422);
         })
-    
+
     });
     it('give up on a change', () => {
         createOrgModule.editOrgName.click();
@@ -69,13 +69,13 @@ describe('edit org', () => {
         createOrgModule.checkOrgNameDashboard.should('contain', orgName.substring(0, 16))
     });
     it('positive', () => {
-        createOrgModule.editOrgName2(id[1],faker.company.companyName())
+        createOrgModule.editOrgName2(id[1], faker.company.companyName())
     });
     it('positive 255 char', () => {
-        createOrgModule.editOrgName2(id[1],data.org.name255)
+        createOrgModule.editOrgName2(id[1], data.org.name255)
 
     });
     it('positive unicode', () => {
-        createOrgModule.editOrgName2(id[1],data.org.nameUnicode)
+        createOrgModule.editOrgName2(id[1], data.org.nameUnicode)
     });
 })

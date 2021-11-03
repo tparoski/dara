@@ -2,7 +2,6 @@
 import acrhiveDel from "../models/archiveDeleteOrg"
 import url from "../fixtures/url.json"
 import createOrgModule from "../models/createOrgModule"
-
 describe('archive org', () => {
     let token
     let id
