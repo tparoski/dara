@@ -1,10 +1,8 @@
 /// <reference types ="Cypress" />
-import org from "../fixtures/addOrg.json"
-import nav from "../fixtures/navigation.json"
 import data from "../fixtures/data.json"
+import acrhiveDel from "../models/archiveDeleteOrg"
 import url from "../fixtures/url.json"
-import board from "../fixtures/addBoard.json"
-const jpg = "../fixtures/media/valid/jpg.jpg"
+import createOrgModule from "../models/createOrgModule"
 describe('delete org', () => {
     let token
     let id
@@ -16,19 +14,7 @@ describe('delete org', () => {
         cy.visit(url.myOrg)
         cy.wait('@logged')
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        cy.intercept('POST', 'https://cypress-api.vivifyscrum-stage.com/api/v2/organizations').as('orgCreated')
-        cy.get(org.navigation.addNewOrganization).click()
-        cy.get(org.modalTitle).should('have.text', data.org.titleNewOrg)
-        cy.get(org.organizationName.organizationNameInput).type(data.org.name3)
-        cy.get(org.navigation.nextButton).should('not.be.disabled').click()
-        cy.get(org.navigation.nextButton).should('not.be.disabled').click()
-        cy.wait('@orgCreated').its("response").then((res) => {
-            expect(res.statusCode).to.eq(200);
-            expect(res.body.name).to.eq(data.org.name3);
-            expect(res.body.original_avatar).to.eq(null);
-        })
-        cy.get(board.okBoardCreated).click()
-        cy.get(nav.organizationName).should('have.text', data.org.name3)
+        createOrgModule.createOrgPositive({})
         cy.url().then((url) => {
             id = url.match(/^.+cypress.vivifyscrum-stage.com\/organizations\/(\d+)/)
             cy.url().should('eq', `${Cypress.config('baseUrl')}/organizations/${id[1]}/boards`)
@@ -36,63 +22,36 @@ describe('delete org', () => {
     })
     beforeEach(() => {
         cy.login()
-        cy.intercept('https://cypress-api.vivifyscrum-stage.com/api/v2/users/app-notifications').as('logged')
+        cy.intercept('GET', 'https://cypress-api.vivifyscrum-stage.com/api/v2/my-organizations').as('organizations')
         cy.visit(url.myOrg)
-        cy.wait('@logged')
+        cy.wait('@organizations').its('response.body')
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        cy.request({
-            headers: {
-                'authorization': "Bearer " + token,
-            },
-            method: 'PUT',
-            url: `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}/status`,
-            body: { "status": "archived" }
-        })
+        acrhiveDel.archiveAllApi(token)
     });
     it('revert archive>no', () => {
-        cy.get(org.archive.revertArchive).eq(0).click({ force: true })
-        cy.get(org.archive.denyArchive).click()
-        cy.get(org.archivedOrg).children().should('have.length', 1)
-        cy.get(org.activeOrg).children().should('have.length', 2)
-        //sve znam
-        cy.get("div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']>div[id=" + id[1] + "]").should('exist')
+        acrhiveDel.revertArchive.eq(0).click({ force: true })
+        acrhiveDel.denyArchive.click({ force: true })
+        acrhiveDel.checkIfOrgIsArchived(id[1])
+        acrhiveDel.checkOrgStatusAPI("archived", token)
     });
     it('revert archive>yes', () => {
-        cy.intercept(`https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}/status`).as('changeToActive')
-        cy.get(org.archive.revertArchive).eq(0).click({ force: true })
-        cy.get(org.archive.confirmArchive).click()
-        cy.wait('@changeToActive').its("response").then((res) => {
-            expect(res.statusCode).to.eq(200);
-            expect(res.body.status).to.eq("active");
-        })
-        cy.get(org.activeOrg).children().should('have.length', 3)
-        //jasno
-        cy.get("div[class='vs-c-my-organizations-item-wrapper']>div[id=" + id[1] + "]").should('exist')
+        acrhiveDel.revertArchive.eq(0).click({ force: true })
+        acrhiveDel.confirmArchive.click({ force: true })
+        cy.wait(2000)
+        acrhiveDel.checkOrgStatusAPI("active", token)
+        acrhiveDel.checkIfOrgIsActive(id[1])
     });
     it('delete without pass', () => {
-        cy.get(org.delete.deleteOrg).click({ force: true })
-        cy.get(org.delete.confirmDelete).should('be.disabled')
+        acrhiveDel.deleteOrg.click({ force: true })
+        acrhiveDel.confirmArchive.should('be.disabled')
     });
     it('delete pass with spaces', () => {
-        cy.get(org.delete.deleteOrg).click({ force: true })
-        cy.get(org.delete.password).type(data.strings.onlyspaces)
-        cy.get(org.delete.confirmDelete).click()
-        cy.get(org.errors.imageExtension).should('have.text', data.errors.pass)
+        acrhiveDel.deleteOrgWithPass({ id: id[1], pass: data.strings.onlyspaces })
     });
     it('delete wrong pass', () => {
-        cy.get(org.delete.deleteOrg).click({ force: true })
-        cy.get(org.delete.password).type(data.userInvalid.wrongPass)
-        cy.get(org.delete.confirmDelete).click()
-        cy.get(org.errors.imageExtension).should('have.text', data.errors.pass)
+        acrhiveDel.deleteOrgWithPass({ id: id[1], pass: data.userInvalid.wrongPass })
     });
     it('delete for real', () => {
-        cy.intercept('POST', `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}`).as('delete')
-        cy.get(org.delete.deleteOrg).click({ force: true })
-        cy.get(org.delete.password).type(data.user.password)
-        cy.get(org.delete.confirmDelete).click()
-        cy.wait('@delete').its("response").then((res) => {
-            expect(res.statusCode).to.eq(201);
-            expect(res.body.id.toString()).to.eq(id[1]);
-        })
+        acrhiveDel.deleteOrgWithPass({ id: id[1] })
     });
 })

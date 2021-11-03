@@ -1,12 +1,13 @@
 /// <reference types ="Cypress" />
-import org from "../fixtures/addOrg.json"
 import data from "../fixtures/data.json"
 import url from "../fixtures/url.json"
-import board from "../fixtures/addBoard.json"
-import nav from "../fixtures/navigation.json"
+import createOrgModule from "../models/createOrgModule"
+import faker from "faker"
+import archiveDel from "../models/archiveDeleteOrg"
 describe('edit org', () => {
     let token
     let id
+    let orgName
     before(() => {
         cy.login().then((response) => {
             token = response
@@ -15,19 +16,7 @@ describe('edit org', () => {
         cy.visit(url.myOrg)
         cy.wait('@logged')
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        cy.intercept('POST', 'https://cypress-api.vivifyscrum-stage.com/api/v2/organizations').as('orgCreated')
-        cy.get(org.navigation.addNewOrganization).click()
-        cy.get(org.modalTitle).should('have.text', data.org.titleNewOrg)
-        cy.get(org.organizationName.organizationNameInput).type(data.org.name)
-        cy.get(org.navigation.nextButton).should('not.be.disabled').click()
-        cy.get(org.navigation.nextButton).should('not.be.disabled').click()
-        cy.wait('@orgCreated').its("response").then((res) => {
-            expect(res.statusCode).to.eq(200);
-            expect(res.body.name).to.eq(data.org.name);
-            expect(res.body.original_avatar).to.eq(null);
-        })
-        cy.get(board.okBoardCreated).click()
-        cy.get(nav.organizationName).should('have.text', data.org.name)
+        createOrgModule.createOrgPositive({})
         cy.url().then((url) => {
             id = url.match(/^.+cypress.vivifyscrum-stage.com\/organizations\/(\d+)/)
             cy.url().should('eq', `${Cypress.config('baseUrl')}/organizations/${id[1]}/boards`)
@@ -35,86 +24,58 @@ describe('edit org', () => {
     })
     beforeEach(() => {
         cy.login()
-        cy.intercept('https://cypress-api.vivifyscrum-stage.com/api/v2/users/app-notifications').as('logged')
+        cy.intercept('GET','https://cypress-api.vivifyscrum-stage.com/api/v2/my-organizations').as('organizations')
         cy.visit(url.myOrg)
-        cy.wait('@logged')
+        cy.wait('@organizations').its('response.body').then((res) => {
+            orgName=res[res.length - 1].name
+        })
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
     })
     after(() => {
-        cy.intercept('https://cypress-api.vivifyscrum-stage.com/api/v2/users/app-notifications').as('logged')
+        cy.login()
         cy.visit(url.myOrg)
-        cy.wait('@logged')
-        cy.get(org.activeOrg)
-            .children()
-            .then(($children) => {
-                for (var i = 0; i < $children.length - 2; i++) {
-                    cy.request({
-                        headers: {
-                            'authorization': "Bearer " + token,
-                        },
-                        method: 'PUT',
-                        url: `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${$children[i].id}/status`,
-                        body: { "status": "archived" }
-                    })
-                }
-            })
-        cy.get(org.archivedOrg)
-            .children()
-            .then(($children) => {
-                for (var i = 0; i < $children.length; i++) {
-                    cy.request({
-                        headers: {
-                            'authorization': "Bearer " + token,
-                        },
-                        method: 'POST',
-                        url: `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${$children[i].id}`,
-                        body: { passwordOrEmail: data.user.password }
-                    })
-                }
-            })
+        cy.wait('@organizations')
+        cy.wait(2000)
+        archiveDel.archiveAllApi(token)
+        archiveDel.deleteAllApi(token)
     })
     it('edit name to nothing', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear()
-        cy.get(org.editOrganization.confirmChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.name)
+        createOrgModule.editOrgName.click();
+        createOrgModule.editNameInput.should('be.visible').clear()
+        createOrgModule.confirmOrgName.should('be.visible').click();
+        createOrgModule.checkOrgNameDashboard.should('contain', orgName.substring(0, 16))
     });
     it('edit name only spaces', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.strings.onlyspaces)
-        cy.get(org.editOrganization.confirmChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.name)
+        createOrgModule.editOrgName.click();
+        createOrgModule.editNameInput.should('be.visible').clear().type("   ")
+        createOrgModule.confirmOrgName.should('be.visible').click();
+        createOrgModule.checkOrgNameDashboard.should('contain', orgName.substring(0, 16))
     });
     //bug. only BE error , no FE
     it('change name to over 255  char', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.strings.string256)
-        cy.get(org.editOrganization.denyChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.name)
+        cy.intercept('PUT',`https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${id[1]}`).as('orgNameEdit');
+        createOrgModule.editOrgName.click();
+        createOrgModule.editNameInput.should('be.visible').clear().type(data.strings.string256);
+        createOrgModule.confirmOrgName.should('be.visible').click();
+        cy.wait('@orgNameEdit').its("response").then((res) => {
+            expect(res.statusCode).to.eq(422);
+        })
+    
     });
     it('give up on a change', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.strings.string5)
-        cy.get(org.editOrganization.denyChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.name)
+        createOrgModule.editOrgName.click();
+        createOrgModule.editNameInput.should('be.visible').clear().type(data.org.name)
+        createOrgModule.denyOrgName.click()
+        createOrgModule.checkOrgNameDashboard.should('contain', orgName.substring(0, 16))
     });
     it('positive', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.org.name2)
-        cy.get(org.editOrganization.confirmChangeName).click()
-        cy.wait(500)
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.name2)
+        createOrgModule.editOrgName2(id[1],faker.company.companyName())
     });
     it('positive 255 char', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.org.name255)
-        cy.get(org.editOrganization.confirmChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('include.text', "KYci3ymXPwPuSnQwK...")
+        createOrgModule.editOrgName2(id[1],data.org.name255)
+
     });
     it('positive unicode', () => {
-        cy.get(org.editOrganization.editOrgName).click()
-        cy.get(org.editOrganization.editOrgNameInput).clear().type(data.org.nameUnicode)
-        cy.get(org.editOrganization.confirmChangeName).click()
-        cy.get(org.organizationName.checkNameDashBoard).should('have.text', data.org.nameUnicode)
+        createOrgModule.editOrgName2(id[1],data.org.nameUnicode)
     });
 })
