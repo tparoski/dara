@@ -59,7 +59,6 @@ module.exports = {
         }
     },
     archiveAllApi(token) {
-
         cy.get("div[class='vs-c-my-organizations-item-wrapper']").children().then(($children) => {
             for (var i = 0; i < $children.length; i++) {
                 console.log($children[i].id)
