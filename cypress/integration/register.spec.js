@@ -1,6 +1,5 @@
 /// <reference types ="Cypress" />
 import data from "../fixtures/data.json"
-import loginModule from "../models/loginModule"
 import registerModule from "../models/registerModule"
 const faker = require("faker");
 describe('register negative cases', () => {
@@ -152,7 +151,7 @@ describe('register positive cases', () => {
         cy.visit('https://cypress.vivifyscrum-stage.com/sign-up?type=yearly&plan=1&event=page-card')
     })
     after('log out', () => {
-        loginModule.logout()
+        cy.logOut()
     })
     it("positive with eye closed", () => {
         registerModule.registerValid({})

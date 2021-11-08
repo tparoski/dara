@@ -52,7 +52,6 @@ module.exports = {
     get allErrors() {
         return cy.get("div[class=vs-c-form-item__error-wrapper]")
     },
-    //napravila sam dve funkcije jer kada napravim da jedna funkcija pokriva sve potrebe celog speca izgleda dosta ruzno sa previse if-ova. pretpostavila sam da je tako nesto losa praksa, pa mi se ovo ucinilo potencijalno boljom idejom
     registerValid({ eye = false }) {
         cy.intercept('POST', 'https://cypress-api.vivifyscrum-stage.com/api/v2/register').as('register')
         const email = faker.internet.email().toLowerCase()

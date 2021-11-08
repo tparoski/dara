@@ -98,17 +98,6 @@ module.exports = {
         this.modalUploadLogo.attachFile(file)
         this.errorImage.should('be.visible').and('have.text', data.errors.logo)
     },
-    countBoards(token) {
-        return cy.request({
-            headers: {
-                'authorization': "Bearer " + token,
-            },
-            method: 'GET',
-            url: 'https://cypress-api.vivifyscrum-stage.com/api/v2/boards/'
-        }).then((response) => {
-            return response.body.length
-        })
-    },
     boardName(name) {
         this.addFromDashboard.click();
         this.modalTitle.should('contain', data.board.modalTitle)

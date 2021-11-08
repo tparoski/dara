@@ -7,7 +7,7 @@ describe('prvi testovi', () => {
         cy.visit(url.login)
     });
     after('log out', () => {
-        loginModule.logout()
+        cy.logOut()
     })
     it('missing email', () => {
         loginModule.login({email: ""})

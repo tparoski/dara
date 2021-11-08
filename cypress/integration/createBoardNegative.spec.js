@@ -2,9 +2,7 @@
 import "cypress-localstorage-commands";
 import data from "../fixtures/data.json"
 import url from "../fixtures/url.json"
-import acrhiveDel from "../models/archiveDeleteOrg"
 import boardModule from "../models/createBoardModule";
-import createOrgModule from "../models/createOrgModule"
 const ai = '../fixtures/media/invalid/ai.ai';
 //const bmp = '../fixtures/media/invalid/bmp.bmp';
 const docx = '../fixtures/media/invalid/docx.docx';
@@ -19,11 +17,10 @@ describe('create board without organization', () => {
     before(() => {
         cy.login().then((response) => {
             token = response
-
             cy.visit(url.myOrg)
             cy.wait(2000)
-            acrhiveDel.archiveAllApi(token)
-            acrhiveDel.deleteAllApi(token)
+            cy.archiveAllApi(token)
+            cy.deleteAllApi(token)
         })
     })
     beforeEach(() => {
@@ -39,21 +36,15 @@ describe('create board without organization', () => {
 });
 describe('create board negative cases', () => {
     let token
-    let id
+    let orgId
     let count
     before(() => {
         cy.login().then((response) => {
             token = response
-        })
-        cy.intercept('https://cypress-api.vivifyscrum-stage.com/api/v2/users/app-notifications').as('logged')
-        cy.visit(url.myOrg)
-        cy.wait('@logged')
-        cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        createOrgModule.createOrgPositive({})
-        cy.url().then((url) => {
-            id = url.match(/^.+cypress.vivifyscrum-stage.com\/organizations\/(\d+)/)
-            cy.url().should('eq', `${Cypress.config('baseUrl')}/organizations/${id[1]}/boards`)
-        })
+            cy.createOrgApi(token).then(organizationId => {
+                orgId = organizationId
+            })
+        });
     });
     beforeEach(() => {
         cy.login()
@@ -61,8 +52,7 @@ describe('create board negative cases', () => {
         cy.visit(url.myOrg)
         cy.wait('@organizations').its('response.body')
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        boardModule.countBoards(token).then(res => {
-            console.log(res)
+        cy.countBoards(token).then(res => {
             count = res
         })
     });
@@ -71,8 +61,8 @@ describe('create board negative cases', () => {
         cy.visit(url.myOrg)
         cy.wait('@organizations')
         cy.wait(2000)
-        acrhiveDel.archiveAllApi(token)
-        acrhiveDel.deleteAllApi(token)
+        cy.archiveAllApi(token)
+        cy.deleteAllApi(token)
     });
     it('next is dissabed without file name', () => {
         boardModule.boardName("")
