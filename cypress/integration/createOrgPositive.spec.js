@@ -3,7 +3,6 @@ import data from "../fixtures/data.json"
 import url from "../fixtures/url.json"
 import "cypress-localstorage-commands";
 import createOrgModule from "../models/createOrgModule"
-import acrhiveDel from "../models/archiveDeleteOrg"
 const jpg = "../fixtures/media/valid/jpg.jpg"
 const gif = '../fixtures/media/valid/gif.gif';
 const jpeg = '../fixtures/media/valid/jpeg.jpeg';
@@ -30,8 +29,8 @@ describe('create org positive cases', () => {
         cy.login()
         cy.visit(url.myOrg)
         cy.wait(2000)
-        acrhiveDel.archiveAllApi(token)
-        acrhiveDel.deleteAllApi(token)
+        cy.archiveAllApi(token)
+        cy.deleteAllApi(token)
     })
     it('upload and delete', () => {
         createOrgModule.logoNegative("delete", gif)

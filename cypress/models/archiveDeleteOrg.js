@@ -48,7 +48,7 @@ module.exports = {
         if (pass == data.user.password) {
             cy.wait('@delete').its("response").then((res) => {
                 expect(res.statusCode).to.eq(201);
-                expect(res.body.id.toString()).to.eq(id);
+                expect(res.body.id).to.eq(id);
             })
         } else {
             cy.wait('@delete').its("response").then((res) => {
@@ -57,42 +57,6 @@ module.exports = {
 
             })
         }
-    },
-    archiveAllApi(token) {
-
-        cy.get("div[class='vs-c-my-organizations-item-wrapper']").children().then(($children) => {
-            for (var i = 0; i < $children.length; i++) {
-                console.log($children[i].id)
-                if ($children[i].id && !isNaN($children[i].id)) {
-                    cy.request({
-                        headers: {
-                            'authorization': "Bearer " + token,
-                        },
-                        method: 'PUT',
-                        url: `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${$children[i].id}/status`,
-                        body: { "status": "archived" }
-                    })
-                }
-
-            }
-        })
-    },
-    deleteAllApi(token) {
-        cy.get("body").then(($body) => {
-            if ($body.find("div[class='vs-l-my-organizations__content']").children().length > 2) {
-                cy.get("div[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived']").children().then(($children) => {
-                    for (var i = 0; i < $children.length; i++) {
-                        cy.request({
-                            headers: {
-                                'authorization': "Bearer " + token,
-                            },
-                            method: 'POST',
-                            url: `https://cypress-api.vivifyscrum-stage.com/api/v2/organizations/${$children[i].id}`,
-                            body: { passwordOrEmail: data.user.password }
-                        })
-                    }
-                })
-            }
-        })
     }
+
 }

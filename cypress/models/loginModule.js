@@ -49,14 +49,5 @@ module.exports = {
                 });
             }
         }
-    },
-    logout() {
-        cy.intercept('POST', '/api/v2/logout').as('loggedOut');
-        sideBarModule.logo.should('be.visible').click();
-        sideBarModule.me.should("be.visible").click();
-        sideBarModule.logout.should("be.visible").click();
-        cy.wait('@loggedOut').its("response").then((res) => {
-            expect(res.statusCode).to.eq(201);
-        })
     }
 }

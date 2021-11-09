@@ -1,7 +1,6 @@
 /// <reference types ="Cypress" />
 import "cypress-localstorage-commands"
 import url from "../fixtures/url.json"
-import acrhiveDel from "../models/archiveDeleteOrg"
 import archiveDeleteBoard from "../models/archiveDeleteBoard"
 import sideBar from "../models/sideBarModule"
 describe('archive board', () => {
@@ -11,9 +10,9 @@ describe('archive board', () => {
     before(() => {
         cy.login().then((response) => {
             token = response
-            archiveDeleteBoard.createOrgApi(token).then(orgId => {
+            cy.createOrgApi(token).then(orgId => {
                 organizationId = orgId
-                archiveDeleteBoard.createBoardApi(token, orgId).then(board => {
+                cy.createBoardApi(token, orgId).then(board => {
                     boardId = board
                 })
             })
@@ -29,8 +28,8 @@ describe('archive board', () => {
         cy.login()
         cy.visit(url.myOrg)
         cy.wait(2000)
-        acrhiveDel.archiveAllApi(token)
-        acrhiveDel.deleteAllApi(token)
+        cy.archiveAllApi(token)
+        cy.deleteAllApi(token)
     })
     it('send to archive>no', () => {
         archiveDeleteBoard.archive.click({ force: true })

@@ -2,23 +2,16 @@
 import data from "../fixtures/data.json"
 import acrhiveDel from "../models/archiveDeleteOrg"
 import url from "../fixtures/url.json"
-import createOrgModule from "../models/createOrgModule"
 describe('delete org', () => {
     let token
-    let id
+    let orgId
     before(() => {
         cy.login().then((response) => {
             token = response
-        })
-        cy.intercept('https://cypress-api.vivifyscrum-stage.com/api/v2/users/app-notifications').as('logged')
-        cy.visit(url.myOrg)
-        cy.wait('@logged')
-        cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        createOrgModule.createOrgPositive({})
-        cy.url().then((url) => {
-            id = url.match(/^.+cypress.vivifyscrum-stage.com\/organizations\/(\d+)/)
-            cy.url().should('eq', `${Cypress.config('baseUrl')}/organizations/${id[1]}/boards`)
-        })
+            cy.createOrgApi(token).then(organizationId => {
+                orgId = organizationId
+            })
+        });
     })
     beforeEach(() => {
         cy.login()
@@ -26,12 +19,12 @@ describe('delete org', () => {
         cy.visit(url.myOrg)
         cy.wait('@organizations').its('response.body')
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
-        acrhiveDel.archiveAllApi(token)
+        cy.archiveAllApi(token)
     });
     it('revert archive>no', () => {
         acrhiveDel.revertArchive.eq(0).click({ force: true })
         acrhiveDel.denyArchive.click({ force: true })
-        acrhiveDel.checkIfOrgIsArchived(id[1])
+        acrhiveDel.checkIfOrgIsArchived(orgId)
         acrhiveDel.checkOrgStatusAPI("archived", token)
     });
     it('revert archive>yes', () => {
@@ -39,19 +32,19 @@ describe('delete org', () => {
         acrhiveDel.confirmArchive.click({ force: true })
         cy.wait(2000)
         acrhiveDel.checkOrgStatusAPI("active", token)
-        acrhiveDel.checkIfOrgIsActive(id[1])
+        acrhiveDel.checkIfOrgIsActive(orgId)
     });
     it('delete without pass', () => {
         acrhiveDel.deleteOrg.click({ force: true })
         acrhiveDel.confirmArchive.should('be.disabled')
     });
     it('delete pass with spaces', () => {
-        acrhiveDel.deleteOrgWithPass({ id: id[1], pass: data.strings.onlyspaces })
+        acrhiveDel.deleteOrgWithPass({ id: orgId, pass: data.strings.onlyspaces })
     });
     it('delete wrong pass', () => {
-        acrhiveDel.deleteOrgWithPass({ id: id[1], pass: data.userInvalid.wrongPass })
+        acrhiveDel.deleteOrgWithPass({ id: orgId, pass: data.userInvalid.wrongPass })
     });
     it('delete for real', () => {
-        acrhiveDel.deleteOrgWithPass({ id: id[1] })
+        acrhiveDel.deleteOrgWithPass({ id: orgId })
     });
 })

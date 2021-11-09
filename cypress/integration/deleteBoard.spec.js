@@ -1,7 +1,6 @@
 /// <reference types ="Cypress" />
 import "cypress-localstorage-commands"
 import url from "../fixtures/url.json"
-import acrhiveDel from "../models/archiveDeleteOrg"
 import archiveDeleteBoard from "../models/archiveDeleteBoard"
 import sideBar from "../models/sideBarModule"
 import faker from "faker"
@@ -14,9 +13,9 @@ describe('delete board', () => {
     before(() => {
         cy.login().then((response) => {
             token = response
-            archiveDeleteBoard.createOrgApi(token).then(orgId => {
+            cy.createOrgApi(token).then(orgId => {
                 organizationId = orgId
-                archiveDeleteBoard.createBoardApi(token, orgId).then(board => {
+                cy.createBoardApi(token, orgId).then(board => {
                     boardId = board
                 })
             })
@@ -24,7 +23,7 @@ describe('delete board', () => {
     })
     beforeEach(() => {
         cy.login()
-        archiveDeleteBoard.archiveBoardAPI(token, boardId)
+        cy.archiveBoardAPI(token, boardId)
         cy.visit(url.myOrg)
         cy.url().should('eq', `${Cypress.config('baseUrl')}/my-organizations`)
         sideBar.clickOntheOrg(organizationId).click()
@@ -34,8 +33,8 @@ describe('delete board', () => {
         cy.login()
         cy.visit(url.myOrg)
         cy.wait(2000)
-        acrhiveDel.archiveAllApi(token)
-        acrhiveDel.deleteAllApi(token)
+        cy.archiveAllApi(token)
+        cy.deleteAllApi(token)
     })
     it('revert>no', () => {
         archiveDeleteBoard.revertArchive.click({ force: true })
