@@ -33,7 +33,7 @@ Cypress.Commands.add('login', () => {
         url: 'https://cypress-api.vivifyscrum-stage.com/api/v2/login',
         body: {
             email: Cypress.env('validEmail'),
-            password: Cypress.env('validPass'),
+            password: Cypress.env('validPass')
         }
     }).its('body').then((response) => {
         window.localStorage.setItem('token', response.token)
@@ -43,7 +43,6 @@ Cypress.Commands.add('login', () => {
         return response.token
     })
 })
-
 Cypress.Commands.add('logOut', () => {
     cy.intercept('POST', '/api/v2/logout').as('loggedOut');
     sideBarModule.logo.should('be.visible').click();
